@@ -1,0 +1,21 @@
+name: File a Documentation Issue
+description: Document information relevant to the project that isn't a feature, task or bug
+title: "[Doc]: <Title/desc>"
+labels: ["documentation"]
+projects: [""]
+assignees:
+  - sebha01
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the documentation issue.
+  - type: textarea
+    id: Documentation-issue-description
+    attributes:
+      label: What is the documentation that you will be creating?
+      description: Also mention what it will aim to do and include any photos or videos to help show the feature
+      placeholder: Tell us task you want to add!
+      value: "I want to document something that isn't a task, bug or feature."
+    validations:
+      required: true
