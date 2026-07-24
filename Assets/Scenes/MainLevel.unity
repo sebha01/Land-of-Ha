@@ -2011,7 +2011,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 34e12ec3eb3fa2d4ab0f93d81feabb28, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2109,6 +2109,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   groundCheckOffsetX: 0.06
+  baseGravity: 2
+  maxFallSpeed: 18
+  fallSpeedMultiplier: 2
 --- !u!114 &793891399
 MonoBehaviour:
   m_ObjectHideFlags: 0
