@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 176789358}
   - component: {fileID: 176789359}
+  - component: {fileID: 176789360}
   m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Player
@@ -200,7 +201,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -8800321854460688920, guid: 869b3cdba074a384086e1e51f6b667b2, type: 3}
+  m_Sprite: {fileID: 6494158638681932792, guid: 0e9d1c8571d35cf449097965a4182a90, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -210,6 +211,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &176789360
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176789357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0fc1684528762b34aacd366953cb5ab5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &223228615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,7 +1054,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 7
-      m_TileSpriteIndex: 10
+      m_TileSpriteIndex: 11
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2084,10 +2107,10 @@ Tilemap:
     m_Data: {fileID: 8504266397965441518, guid: 7a39499b0d9b4374abf448047d4356cb, type: 3}
   - m_RefCount: 48
     m_Data: {fileID: -4448878188786566597, guid: 7a39499b0d9b4374abf448047d4356cb, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -3640503006358895682, guid: 7a39499b0d9b4374abf448047d4356cb, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -3640503006358895682, guid: 7a39499b0d9b4374abf448047d4356cb, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 148
     m_Data:
@@ -4971,10 +4994,10 @@ BoxCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0039801598, y: -0.06442618}
   m_SpriteTilingProperty:
-    border: {x: 0.13333334, y: 0, z: 0, w: 0.20000002}
+    border: {x: 0.13333334, y: 0, z: 0.13333334, w: 0.20000002}
     pivot: {x: 0.5, y: 0}
-    oldSize: {x: 0.93333334, y: 1.0666667}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 1.0666667, y: 1.0666667}
+    newSize: {x: 1.0666667, y: 1.0666667}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
