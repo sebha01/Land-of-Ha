@@ -35,19 +35,29 @@ public class PlayerMovement : MonoBehaviour
     [Header("Wall Movement")]
     public float wallSlideSpeed = 2.0f;
     bool isWallSliding;
+    //Wall jumping
+    bool isWallJumping;
+    float wallJumpDirection;
+    float wallJumpTime = 0.5f;
+    float wallJumpTimer;
+    public Vector2 wallJumpPower = new Vector2(5.0f, 10.0f);
 
     // Update is called once per frame
     void Update()
     {
-        rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
-
         GroundCheck();
-        ApplyGravity();
-        ApplyWallSlide();
-        FlipSprite();
+        HandleGravity();
+        HandleWallSlide();
+        HandleWallJump();
+
+        if (!isWallJumping)
+        {
+            rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+            FlipSprite();
+        }
     }
 
-    private void ApplyGravity()
+    private void HandleGravity()
     {
         if (rb.linearVelocity.y < 0)
         { 
@@ -60,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ApplyWallSlide()
+    private void HandleWallSlide()
     {
         //Not grounded and on wall and movement isn't 0
         if (!isGrounded && WallCheck() && horizontalMovement != 0)
@@ -72,6 +82,27 @@ public class PlayerMovement : MonoBehaviour
         {
             isWallSliding = false;
         }
+    }
+
+    private void HandleWallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpDirection = -transform.localScale.x;
+            wallJumpTimer = wallJumpTime;
+
+            CancelInvoke(nameof(CancelWallJump));
+        }
+        else if (wallJumpTimer > 0.0f)
+        {
+            wallJumpTimer -= Time.deltaTime;
+        }
+    }
+
+    private void CancelWallJump()
+    {
+        isWallJumping = false;
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -93,6 +124,25 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
                 jumpsRemaining--;
             }
+        }
+
+        //Wall jumping 
+        if (context.performed && wallJumpTimer > 0.0f)
+        {
+            isWallJumping = true;
+            rb.linearVelocity = new Vector2(wallJumpDirection * wallJumpPower.x, wallJumpPower.y); //Jump away from wall
+            wallJumpTimer = 0.0f;
+
+            //Force flip
+            if (transform.localScale.x != wallJumpDirection)
+            {
+                isFacingRight = !isFacingRight;
+                Vector3 ls = transform.localScale;
+                ls.x *= -1;
+                transform.localScale = ls;
+            }
+
+            Invoke(nameof(CancelWallJump), wallJumpTime + 0.1f); //Wall jump 0.5f; -- Jump again = 0.6f;
         }
     }
 
