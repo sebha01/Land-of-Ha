@@ -21,12 +21,16 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheckPos;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
-    public float groundCheckOffsetX = 0.06f;
 
     [Header("Gravity")]
     public float baseGravity = 2.0f;
     public float maxFallSpeed = 18.0f;
     public float fallSpeedMultiplier = 2.0f;
+
+    [Header("Wall Check")]
+    public Transform wallCheckPos;
+    public Vector2 wallCheckSize = new Vector2(0.5f, 0.05f);
+    public LayerMask wallLayer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -93,7 +97,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        //Ground check
         Gizmos.color = Color.white;
-        Gizmos.DrawWireCube(new Vector3(groundCheckPos.position.x - groundCheckOffsetX, groundCheckPos.position.y, groundCheckPos.position.z), groundCheckSize);
+        Gizmos.DrawWireCube(groundCheckPos.position, groundCheckSize);
+        //Wall check
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireCube(wallCheckPos.position, wallCheckSize);
     }
 }
