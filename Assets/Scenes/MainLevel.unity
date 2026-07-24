@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 176789357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.005, y: -0.505, z: 0}
+  m_LocalPosition: {x: -0.0071, y: -0.4925, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1617,7 +1617,7 @@ MonoBehaviour:
   CameraDistance: 10
   DeadZoneDepth: 0
   Composition:
-    ScreenPosition: {x: 0, y: 0.2}
+    ScreenPosition: {x: 0, y: 0.3}
     DeadZone:
       Enabled: 0
       Size: {x: 0.2, y: 0.2}
@@ -1658,7 +1658,7 @@ MonoBehaviour:
     CustomLookAtTarget: 0
   Lens:
     FieldOfView: 34
-    OrthographicSize: 5
+    OrthographicSize: 6.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -1685,7 +1685,7 @@ Transform:
   m_GameObject: {fileID: 404730813}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.494, y: -1.511, z: -10}
+  m_LocalPosition: {x: -7.494, y: 0.38900018, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1798,7 +1798,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1823,7 +1823,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.494, y: -1.511, z: -10}
+  m_LocalPosition: {x: -7.494, y: 0.38900018, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2012,7 +2012,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 34e12ec3eb3fa2d4ab0f93d81feabb28, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2074,7 +2074,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0052707195, y: 0}
+  m_Offset: {x: -0.0039801598, y: -0.06442618}
   m_SpriteTilingProperty:
     border: {x: 0.13333334, y: 0, z: 0, w: 0.20000002}
     pivot: {x: 0.5, y: 0}
@@ -2084,7 +2084,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.98945856, y: 1}
+  m_Size: {x: 0.8109503, y: 0.87114763}
   m_EdgeRadius: 0
 --- !u!114 &793891398
 MonoBehaviour:
@@ -2101,12 +2101,14 @@ MonoBehaviour:
   rb: {fileID: 793891394}
   sprRenderer: {fileID: 0}
   moveSpeed: 5
-  jumpPower: 10
+  jumpPower: 7
+  maxJumps: 2
   groundCheckPos: {fileID: 569585739}
-  groundCheckSize: {x: 0.55, y: 0.05}
+  groundCheckSize: {x: 0.54, y: 0.05}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  groundCheckOffsetX: 0.06
 --- !u!114 &793891399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2235,8 +2237,8 @@ GameObject:
   - component: {fileID: 1942062389}
   - component: {fileID: 1942062388}
   - component: {fileID: 1942062387}
-  m_Layer: 0
-  m_Name: Platforms
+  m_Layer: 3
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -14,11 +14,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Jumping")]
     public float jumpPower = 10.0f;
+    public int maxJumps = 2;
+    int jumpsRemaining;
 
     [Header("Ground Check")]
     public Transform groundCheckPos;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
+    public float groundCheckOffsetX = 0.06f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+        GroundCheck();
     }
 
     public void Move(InputAction.CallbackContext context)
@@ -46,19 +50,32 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (jumpsRemaining > 0)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+            if (context.performed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower);
+                jumpsRemaining--;
+            }
+            else if (context.canceled)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+                jumpsRemaining--;
+            }
         }
-        else if (context.canceled)
+    }
+
+    private void GroundCheck()
+    {
+        if (Physics2D.OverlapBox(groundCheckPos.position, groundCheckSize, 0, groundLayer))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
+            jumpsRemaining = maxJumps;
         }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.white;
-        Gizmos.DrawCube(groundCheckPos.position, groundCheckSize);
+        Gizmos.DrawWireCube(new Vector3(groundCheckPos.position.x - groundCheckOffsetX, groundCheckPos.position.y, groundCheckPos.position.z), groundCheckSize);
     }
 }
