@@ -5,12 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public SpriteRenderer sprRenderer;
+    bool isFacingRight = true;
 
     [Header("Movement")]
     public float moveSpeed = 5.0f;
     float horizontalMovement;
-    bool lastFacing;
 
     [Header("Jumping")]
     public float jumpPower = 10.0f;
@@ -32,20 +31,17 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 wallCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask wallLayer;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        sprRenderer = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
-    }
-
     // Update is called once per frame
     void Update()
     {
         rb.linearVelocity = new Vector2(horizontalMovement * moveSpeed, rb.linearVelocity.y);
+
         GroundCheck();
+        ApplyGravity();
+        FlipSprite();
     }
 
-    private void Gravity()
+    private void ApplyGravity()
     {
         if (rb.linearVelocity.y < 0)
         { 
@@ -61,13 +57,6 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;   
-
-        sprRenderer.flipX = horizontalMovement < 0 ? true : horizontalMovement > 0 ? false : lastFacing;
-        
-        if (horizontalMovement != 0)
-        {
-            lastFacing = horizontalMovement < 0;
-        }
     }
 
     public void Jump(InputAction.CallbackContext context)
@@ -84,6 +73,17 @@ public class PlayerMovement : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f);
                 jumpsRemaining--;
             }
+        }
+    }
+
+    private void FlipSprite()
+    {
+        if (isFacingRight && horizontalMovement < 0 || !isFacingRight && horizontalMovement > 0)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 ls = transform.localScale;
+            ls.x *= -1;
+            transform.localScale = ls;
         }
     }
 
