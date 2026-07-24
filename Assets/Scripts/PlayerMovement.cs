@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheckPos;
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
+    bool isGrounded;
 
     [Header("Gravity")]
     public float baseGravity = 2.0f;
@@ -31,6 +32,10 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 wallCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask wallLayer;
 
+    [Header("Wall Movement")]
+    public float wallSlideSpeed = 2.0f;
+    bool isWallSliding;
+
     // Update is called once per frame
     void Update()
     {
@@ -38,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
         GroundCheck();
         ApplyGravity();
+        ApplyWallSlide();
         FlipSprite();
     }
 
@@ -51,6 +57,20 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.gravityScale = baseGravity;
+        }
+    }
+
+    private void ApplyWallSlide()
+    {
+        //Not grounded and on wall and movement isn't 0
+        if (!isGrounded && WallCheck() && horizontalMovement != 0)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Max(rb.linearVelocity.y, -wallSlideSpeed)); //Caps fall rate
+        }
+        else
+        {
+            isWallSliding = false;
         }
     }
 
@@ -92,8 +112,19 @@ public class PlayerMovement : MonoBehaviour
         if (Physics2D.OverlapBox(groundCheckPos.position, groundCheckSize, 0, groundLayer))
         {
             jumpsRemaining = maxJumps;
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
         }
     }
+
+    private bool WallCheck()
+    {
+        return Physics2D.OverlapBox(wallCheckPos.position, wallCheckSize, 0, wallLayer);
+    }
+    
 
     private void OnDrawGizmosSelected()
     {
